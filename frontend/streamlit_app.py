@@ -1,6 +1,6 @@
 """Streamlit UI for GlobusLearn: landing page -> chat workspace, NCERT source cards, cache info, chapter navigation.
 
-All answers come from the FastAPI backend (/conversations, /chat, /solve-image); this file holds UI state and
+All answers come from the FastAPI backend (separate server locally, embedded in-process on Streamlit Cloud) (/conversations, /chat, /solve-image); this file holds UI state and
 layout only. Visual assets live in frontend/static and HTML fragments in frontend/theme.py.
 """
 import json
@@ -13,12 +13,13 @@ import requests
 import streamlit as st
 
 import theme
-
-BACKEND_URL = os.getenv("BACKEND_URL", "http://localhost:8000")
+from embedded_backend import backend_url
 INDEX_META = Path(os.getenv("INDEX_META_PATH", Path(__file__).resolve().parent.parent / "data" / "index" / "index_meta.json"))
 
 st.set_page_config(page_title="GlobusLearn · NCERT Class 10 Science", page_icon="🔬", layout="wide", initial_sidebar_state="auto")
 theme.inject_assets()
+
+BACKEND_URL = backend_url()  # external server if available, else the FastAPI app embedded in this process
 
 # topic cards: (key, icon, title, description, accent, question sent to the existing chat endpoint)
 TOPICS = [
