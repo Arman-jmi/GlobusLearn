@@ -1,0 +1,16 @@
+fastapi>=0.110
+uvicorn[standard]>=0.29
+streamlit>=1.33
+requests>=2.31
+pydantic>=2.6
+pydantic-settings>=2.2
+python-dotenv>=1.0
+langchain>=0.2
+langchain-community>=0.2
+langchain-openai>=0.1
+langchain-text-splitters>=0.2
+faiss-cpu>=1.8
+numpy>=1.26
+pypdf>=4.0
+langchain-huggingface>=0.0.3
+sentence-transformers>=2.7
